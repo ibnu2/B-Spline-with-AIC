@@ -302,18 +302,18 @@ gcv44(x,y,a,b)
 bspline(x,y,3,k=c(-0.1327273,-0.1185859,-0.1044444))
 bspline(x,y,4,k=c(-0.07616162,0.5319192,0.5460606,0.560202))
 
-#uji parameter
-Uji_Parameter(x,y,3, k=c(-0.1327273,-0.1185859,-0.1044444))
-Uji_Parameter(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
+# #uji parameter
+# Uji_Parameter(x,y,3, k=c(-0.1327273,-0.1185859,-0.1044444))
+# Uji_Parameter(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
 
 #f table
 qf(p = 0.05, df1=1, df2=70, lower.tail = FALSE)
 
-#uji individu
-SEbeta <- matrix(0, nrow = (orde+k), ncol = (orde+k))
-Ai <- solve(wtw)
-SEbeta <- sqrt(diag(MSE * Ai))
-SEbeta <- as.matrix(SEbeta)
-Thit <- bet/SEbeta
-Thit
-wtw
+# #uji individu
+# SEbeta <- matrix(0, nrow = (orde+k), ncol = (orde+k))
+# Ai <- solve(wtw)
+# SEbeta <- sqrt(diag(MSE * Ai))
+# SEbeta <- as.matrix(SEbeta)
+# Thit <- bet/SEbeta
+# Thit
+# wtw
