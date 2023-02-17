@@ -50,9 +50,9 @@ Uji_Parameter<-function(x,y,m,k){
 }
 
 
-#uji model paramter
-Uji_Parameter(x,y,2,k=c(1.252727))
-Uji_Parameter(x,y,4,k=c(1.016768, 1.046263, 1.075758, 1.105253))  
+#uji parameter
+Uji_Parameter(x,y,3, k=c(-0.1327273,-0.1185859,-0.1044444))
+Uji_Parameter(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
   
 
 #pengujian parameter 2
@@ -131,6 +131,7 @@ predik<-function(x,y,m,k){
   
 }
 
+predik(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
 
 #uji terakhir
 predic <- function(x,y,m,k)
@@ -140,7 +141,7 @@ predic <- function(x,y,m,k)
   k<-length(knot)
   n<-length(x)
   bs1=bs(x,df=NULL, knots=k, degree=m-1, intercept=TRUE, Boundary.knots=range(x))
-  bs1n = bs1[,2:3]
+  bs1n = bs1[,2:4]
   wn = cbind(bs1n)
   wn = as.matrix(wn)
   
@@ -160,10 +161,10 @@ predic <- function(x,y,m,k)
   print(pred)
 }
 
-predic(x,y,2,k=c(1.252727))
+predic(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
 
 #mape
-yhat = predik(x,y,2,k = c(1.252727))[,2]
+yhat = predik(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
 MAPE = mean(abs(y-yhat)/y)*100
 MAPE
 plot(y,type = "l", col = "red")
