@@ -116,7 +116,7 @@ predik<-function(x,y,m,k){
   knot<-as.matrix(knot)
   k<-length(knot)
   bs1=bs(x,df=NULL, knots=k, degree=m-1, intercept=TRUE, Boundary.knots=range(x))
-  w = cbind(bs1[,2:3])
+  w = cbind(bs1)
   w = as.matrix(w)
   wtw = t(w) %*% w
   z = MPL(wtw)
@@ -131,51 +131,31 @@ predik<-function(x,y,m,k){
   
 }
 
+predik(x,y,3, k=c(-0.1327273,-0.1185859,-0.1044444))
 predik(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
 
-#uji terakhir
-predic <- function(x,y,m,k)
-{
-  knot<-c(k)
-  knot<-as.matrix(knot)
-  k<-length(knot)
-  n<-length(x)
-  bs1=bs(x,df=NULL, knots=k, degree=m-1, intercept=TRUE, Boundary.knots=range(x))
-  bs1n = bs1[,2:4]
-  wn = cbind(bs1n)
-  wn = as.matrix(wn)
-  
-  N <- matrix(0, ncol = n, nrow = n)
-  diag(N) = (1/x)
-  
-  A <- t(wn) %*% N %*% wn
-  A = as.matrix(A)
-  B <- t(wn) %*% N %*% y
-  Beta <- A %*% B
-  Beta_w <- as.matrix(Beta)
-  yhat_w <- wn %*% Beta_w
-  
-  pred = cbind(y,yhat_w)
-  pred = as.matrix(pred)
-  cat("Nilai prediksi adalah \n" )
-  print(pred)
-}
 
-predic(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
 
 #mape
-yhat = predik(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))
+yhat = predik(x,y,4, k=c(-0.07616162,0.5319192,0.5460606,0.560202))[,2]
 MAPE = mean(abs(y-yhat)/y)*100
 MAPE
-plot(y,type = "l", col = "red")
-lines(yhat, col = "blue")
+plot(x,type = "o", col = "#1ECBE1")
+lines(yhat, type = "l" ,col = "#E11ECB")
+lines(yhat1, col = "#66710F")
+legend(1, 1.15, legend=c("Data Aktual", "Data Prediksi AIC", "Data Prediksi GCV"), cex=1,
+       fill = c("#1ECBE1","#E11ECB","#66710F")
+)
 # plot(yhat,y)
 # plot(sapply(y, function(x) min(150, x)))
 
 #mape
 #mape
-yhat1 = predik(x,y,4,k = c(1.016768, 1.046263, 1.075758, 1.105253))[,2]
-MAPE = mean(abs(y-yhat)/y)*100
+yhat1 = predik(x,y,3, k=c(-0.1327273,-0.1185859,-0.1044444))[,2]
+MAPE = mean(abs(y-yhat1)/y)*100
 MAPE
-plot(y,type = "l", col = "red")
-lines(yhat, col = "blue")
+plot(x,type = "l", col = "red")
+lines(yhat1, col = "#CBE11E")
+legend(2, 1, legend=c("Data Aktual", "Data Prediksi"), cex=0.5,
+       fill = c("red","purple")
+)
